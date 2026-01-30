@@ -2,16 +2,20 @@
 Repositório para a entrega da fase técnica do PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos - Engenheiro da Computação- Sênior
 
 PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR
+
 Neste projeto o(a) candidato(a) deverá implementar uma API REST que disponibilize dados sobre artistas e álbuns, conforme os exemplos:
+
 ● Serj Tankian - “Harakiri”, “Black Blooms”, “The Rough Dog”
 ● Mike Shinoda - “The Rising Tied”, “Post Traumatic”, “Post Traumatic EP”, “Where’d You Go”
 ● Michel Teló - “Bem Sertanejo”, “Bem Sertanejo - O Show (Ao Vivo)”, “Bem Sertanejo - (1ª Temporada) - EP”
 ● Guns N’ Roses - “Use Your Illusion I”, “Use Your Illusion II”, “Greatest Hits”
 
 O candidato deverá propor a estrutura de dados de cada tabela de forma coerente e documentar decisões e arquitetura no README.md.
+
 Pré-requisitos:
 a) Leia todo o documento antes de iniciar.
 b) Java (Spring Boot ou Quarkus).
+
 Requisitos Gerais:
 a) Segurança: bloquear acesso ao endpoint a partir de domínios fora do domínio do serviço.
 b) Autenticação JWT com expiração a cada 5 minutos e possibilidade de renovação.
@@ -25,6 +29,7 @@ i) Recuperação por links pré-assinados com expiração de 30 minutos.
 j) Versionar endpoints.
 k) Flyway Migrations para criar e popular tabelas.
 l) Documentar endpoints com OpenAPI/Swagger.
+
 Requisitos apenas para Sênior:
 a) Health Checks e Liveness/Readiness.
 b) Testes unitários.
