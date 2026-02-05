@@ -71,6 +71,27 @@ A API é protegida por JWT (JSON Web Token).
 
 ---
 
+## 🌍 Integração de Regionais (Requisito Sênior)
+
+A API possui um módulo de integração com o sistema **Argus** para sincronização de regionais. Este módulo segue regras rígidas de integridade e histórico de dados.
+
+### Como Testar a Sincronização:
+
+1.  **Carga de Dados**: Inicialmente, o banco de dados estará vazio. Para popular a tabela interna, execute o comando de sincronização no Swagger:
+    * **Endpoint**: `POST /v1/regionais/sync`
+    * **Ação**: Clique em *Try it out* e *Execute*.
+2.  **Consulta**: Após a sincronização, verifique os dados importados:
+    * **Endpoint**: `GET /v1/regionais`
+    * **Resultado esperado**: Lista de regionais com o atributo `"ativo": true`.
+
+### Lógica de Menor Complexidade e Versionamento:
+A sincronização implementada segue as premissas:
+- **Novos registros**: Inseridos automaticamente com `ativo: true`.
+- **Registros ausentes no endpoint**: São marcados como `ativo: false` no banco local (soft delete).
+- **Alterações de nome**: Para manter a integridade histórica, o registro antigo é desativado (`ativo: false`) e um novo registro é criado com o nome atualizado.
+
+---
+
 ## 📊 Funcionalidades Implementadas
 
 ### Paginação, Ordenação e Filtros Dinâmicos
