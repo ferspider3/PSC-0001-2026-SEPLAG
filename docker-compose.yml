@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: music-db
+    environment:
+      POSTGRES_DB: music_db
+      POSTGRES_USER: aranha
+      POSTGRES_PASSWORD: "9545Yc6yxLXO8V9zp1hTiRhTTr8i3l"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aranha -d music_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: music-storage
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: "90V521T8ET4UrV51tPhScGlIcIv7t5"
+    ports:
+      - "9000:9000"   # Porta da API do S3
+      - "9001:9001"   # Porta do Console Web
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: music-api-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      # BANCO DE DADOS
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/music_db
+      - SPRING_DATASOURCE_USERNAME=aranha
+      - SPRING_DATASOURCE_PASSWORD=9545Yc6yxLXO8V9zp1hTiRhTTr8i3l
+      
+      # MINIO / S3
+      - MINIO_ENDPOINT=http://minio:9000
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=90V521T8ET4UrV51tPhScGlIcIv7t5
+      - MINIO_BUCKET=album-covers
+      
+      # SEGURANÇA
+      - JWT_SECRET=2ounT5M9pJaa6JA3ONJ9hwgLQX7l0E
