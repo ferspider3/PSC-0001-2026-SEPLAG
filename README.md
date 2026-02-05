@@ -1,54 +1,161 @@
 # PSC-0001-2026-SEPLAG
 Repositório para a entrega da fase técnica do PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos - Engenheiro da Computação- Sênior
 
-PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR
+# 🎵 PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR - Music API — Spring Boot 3
 
-Neste projeto o(a) candidato(a) deverá implementar uma API REST que disponibilize dados sobre artistas e álbuns, conforme os exemplos:
+API RESTful robusta para gerenciamento de artistas e álbuns, desenvolvida com Spring Boot 3, seguindo boas práticas de arquitetura, segurança e observabilidade.
 
-● Serj Tankian - “Harakiri”, “Black Blooms”, “The Rough Dog”
-● Mike Shinoda - “The Rising Tied”, “Post Traumatic”, “Post Traumatic EP”, “Where’d You Go”
-● Michel Teló - “Bem Sertanejo”, “Bem Sertanejo - O Show (Ao Vivo)”, “Bem Sertanejo - (1ª Temporada) - EP”
-● Guns N’ Roses - “Use Your Illusion I”, “Use Your Illusion II”, “Greatest Hits”
+O projeto é totalmente conteinerizado e inclui autenticação JWT, documentação interativa, monitoramento de saúde, integração com Object Storage (MinIO) e notificações em tempo real via WebSockets.
 
-O candidato deverá propor a estrutura de dados de cada tabela de forma coerente e documentar decisões e arquitetura no README.md.
+---
 
-Pré-requisitos:
-a) Leia todo o documento antes de iniciar.
-b) Java (Spring Boot ou Quarkus).
+## 🚀 Tecnologias Utilizadas
 
-Requisitos Gerais:
-a) Segurança: bloquear acesso ao endpoint a partir de domínios fora do domínio do serviço.
-b) Autenticação JWT com expiração a cada 5 minutos e possibilidade de renovação.
-c) Implementar POST, PUT, GET.
-d) Paginação na consulta dos álbuns.
-e) Expor quais álbuns são/tem cantores e/ou bandas (consultas parametrizadas).
-f) Consultas por nome do artista com ordenação alfabética (asc/desc).
-g) Upload de uma ou mais imagens de capa do álbum.
-h) Armazenamento das imagens no MinIO (API S3).
-i) Recuperação por links pré-assinados com expiração de 30 minutos.
-j) Versionar endpoints.
-k) Flyway Migrations para criar e popular tabelas.
-l) Documentar endpoints com OpenAPI/Swagger.
+- Java 17
+- Spring Boot 3
+- Spring Security + JWT
+- Spring Data JPA
+- WebSocket (STOMP)
+- Spring Actuator
+- MinIO (S3-Compatible Storage)
+- Docker e Docker Compose
+- JUnit 5
+- Mockito
+- Swagger / OpenAPI
 
-Requisitos apenas para Sênior:
-a) Health Checks e Liveness/Readiness.
-b) Testes unitários.
-c) WebSocket para notificar o front a cada novo álbum cadastrado.
-d) Rate limit: até 10 requisições por minuto por usuário.
-e) Endpoint de regionais (https://integrador-argus-api.geia.vip/v1/regionais):
-i) Importar a lista para tabela interna;
-ii) Adicionar atributo “ativo” (regional (id integer, nome varchar(200), ativo boolean));
-iii) Sincronizar com menor complexidade:
-1) Novo no endpoint → inserir;
-2) Ausente no endpoint → inativar;
-3) Atributo alterado → inativar antigo e criar novo registro.
+---
 
-Instruções:
-● Projeto em repositório GitHub.
-● README.md com documentação, dados de inscrição, vaga e como executar/testar.
-● Codifique como se fosse para produção, com possibilidade de evolução.
-● Relacionamento Artista-Álbum N:N.
-● Use o projeto/tecnologias base e adicione dependências necessárias.
-● Use exemplos como carga inicial do banco.
-● Criar e empacotar aplicação como imagens Docker.
-● Entregar como containers orquestrados (API + MinIO + BD) via docker-compose.
+## ▶️ Como Executar o Projeto
+
+O projeto é 100% conteinerizado.  
+Você só precisa ter Docker e Docker Compose instalados.
+
+### Passos
+
+1. Clone o repositório e acesse a pasta raiz
+2. Suba os containers com Docker Compose
+3. Aguarde a inicialização
+
+A API estará disponível em instantes.  
+O banco de dados e os dados iniciais (Linkin Park, Guns N' Roses, etc.) são carregados automaticamente.
+
+---
+
+## 🛠️ Portais de Acesso Rápidos
+
+Serviço: Swagger (Documentação)  
+URL: http://localhost:8080/swagger-ui/index.html  
+Credenciais: admin / password  
+
+Serviço: Health Check  
+URL: http://localhost:8080/actuator/health  
+
+Serviço: MinIO (Object Storage)  
+URL: http://localhost:9001  
+Credenciais: admin / 90V521T8ET4UrV51tPhScGlIcIv7t5  
+
+---
+
+## 🛡️ Autenticação e Segurança
+
+A API é protegida por JWT (JSON Web Token).
+
+### Como autenticar no Swagger
+
+1. Endpoint de login: POST /v1/auth/login
+2. Usuário inicial:
+   - Username: admin
+   - Password: password
+3. Copie o token retornado
+4. No Swagger, clique em Authorize
+5. Utilize o formato: Bearer SEU_TOKEN_AQUI
+
+---
+
+## 📊 Funcionalidades Implementadas
+
+### Paginação, Ordenação e Filtros Dinâmicos
+
+- Filtro por tipo de artista:
+  GET /v1/albums?artistType=BANDA
+
+- Busca por nome do artista:
+  GET /v1/albums?artistName=Guns
+
+- Paginação e ordenação:
+  GET /v1/albums?page=0&size=5&sortBy=title&direction=asc
+
+---
+
+### Monitoramento (Spring Actuator)
+
+Endpoints habilitados para liveness e readiness, permitindo integração com Kubernetes e ferramentas de observabilidade.
+
+---
+
+### Notificações em Tempo Real (WebSocket)
+
+Sempre que um novo álbum é cadastrado, a API publica um evento no tópico:
+
+/topic/new-album
+
+Endpoint de conexão STOMP:
+
+/ws
+
+---
+
+### Upload de Capas de Álbuns (MinIO / S3)
+
+Integração com Object Storage S3-Compatible para upload e recuperação de imagens de capas de álbuns.
+
+---
+
+## 🧪 Testes Unitários
+
+O projeto utiliza JUnit 5 e Mockito para testes automatizados.
+
+Execução dos testes via Docker:
+
+docker exec -it music-api-api mvn test
+
+---
+
+## 🏗️ Estrutura do Projeto (Maven)
+
+src
+- main
+  - java
+    - domain
+    - service
+    - controller
+    - dto
+  - resources
+    - application.properties
+    - db/migration
+- test
+  - java
+
+---
+
+## ✅ Requisitos Cumpridos
+
+- CRUD completo de Artistas e Álbuns
+- Relacionamento Many-to-Many
+- Autenticação com Spring Security + JWT
+- Paginação e Ordenação
+- Health Checks (Actuator)
+- WebSockets para notificações
+- Testes Unitários com Mockito
+
+---
+
+## 💡 Dica para o Avaliador
+
+Para validar paginação e ordenação rapidamente, utilize:
+
+GET /v1/albums?page=0&size=5&sortBy=title&direction=asc
+
+---
+
+Projeto com foco em boas práticas, escalabilidade e padrões de mercado.
