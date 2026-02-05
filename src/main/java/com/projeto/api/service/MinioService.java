@@ -22,9 +22,6 @@ public class MinioService {
         this.minioClient = minioClient;
     }
 
-    /**
-     * Realiza o upload da imagem para o bucket.
-     */
     public String upload(MultipartFile file, String prefix) {
         try {
             String fileName = prefix + "-" + file.getOriginalFilename();
@@ -44,10 +41,6 @@ public class MinioService {
         }
     }
 
-    /**
-     * Gera uma URL temporária (Pre-signed) válida por 30 minutos.
-     * Essencial para segurança (Requisito Sênior).
-     */
     public String getPresignedUrl(String objectName) {
         try {
             return minioClient.getPresignedObjectUrl(
