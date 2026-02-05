@@ -13,10 +13,9 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    // Chave secreta de 256 bits para HS256
-    private final String SECRET_KEY = "sua_chave_secreta_muito_longa_com_pelo_menos_32_caracteres_aqui";
-    private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 15; // 15 minutos
-    private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24; // 24 horas
+    private final String SECRET_KEY = "3QeK2Ru4jsMQM3hHgkrW00P6j9D5vxQy";
+    private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 5; 
+    private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
