@@ -1,181 +1,273 @@
-# PSC-0001-2026-SEPLAG
-Repositório para a entrega da fase técnica do PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos - Engenheiro da Computação- Sênior
+# Processo Seletivo – Engenheiro da Computação Sênior (Backend Java) - SEPLAG
 
-# 🎵 PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR - Music API — Spring Boot 3
+Este repositório contém a **API Backend** desenvolvida como entrega da **fase técnica** do **PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos**.
 
-API RESTful robusta para gerenciamento de artistas e álbuns, desenvolvida com Spring Boot 3, seguindo boas práticas de arquitetura, segurança e observabilidade.
-
-O projeto é totalmente conteinerizado e inclui autenticação JWT, documentação interativa, monitoramento de saúde, integração com Object Storage (MinIO) e notificações em tempo real via WebSockets.
+A aplicação foi construída com foco em **boas práticas**, **segurança**, **escalabilidade**, **observabilidade** e **reprodutibilidade de ambiente**, utilizando **Spring Boot 3** e um ecossistema moderno totalmente **conteinerizado**.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
-
-- Java 17
-- Spring Boot 3
-- Spring Security + JWT
-- Spring Data JPA
-- WebSocket (STOMP)
-- Spring Actuator
-- MinIO (S3-Compatible Storage)
-- Docker e Docker Compose
-- JUnit 5
-- Mockito
-- Swagger / OpenAPI
+## 📋 Dados da Inscrição
+- **Processo Seletivo:** PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos
+- **Cargo:** Engenheiro da Computação – Sênior
+- **Inscrição:** 16251
+- **Candidato:** Fernando Aranha de Oliveira Soares
 
 ---
 
-## ▶️ Como Executar o Projeto
+## 🎵 Projeto Prático – Music API
 
-O projeto é 100% conteinerizado.  
-Você só precisa ter Docker e Docker Compose instalados.
+API RESTful para **gerenciamento de artistas e álbuns**, com autenticação JWT, documentação interativa, notificações em tempo real e integração com Object Storage.
 
-### Passos
-
-1. Clone o repositório e acesse a pasta raiz
-2. Suba os containers com Docker Compose
-3. Aguarde a inicialização
-
-A API estará disponível em instantes.  
-O banco de dados e os dados iniciais (Linkin Park, Guns N' Roses, etc.) são carregados automaticamente.
+### Principais Diferenciais
+- Arquitetura em camadas bem definida
+- Segurança com **Spring Security + JWT**
+- **WebSockets** para eventos em tempo real
+- **MinIO (S3-Compatible)** para upload de capas de álbuns
+- **Spring Actuator** para health checks e observabilidade
+- Integração de dados com **versionamento e histórico** (Requisito Sênior)
 
 ---
 
-## 🛠️ Portais de Acesso Rápidos
+## 🛠️ Tecnologias Utilizadas
 
-Serviço: Swagger (Documentação)  
-URL: http://localhost:8080/swagger-ui/index.html   
+### Core & Backend
+- **Java 17**
+- **Spring Boot 3**
+- **Spring Security + JWT**
+- **Spring Data JPA**
+- **WebSocket (STOMP)**
+- **Spring Actuator**
 
-Serviço: Health Check  
-URL: http://localhost:8080/actuator/health  
+### Infraestrutura & DevOps
+- **Docker** e **Docker Compose**
+- **MinIO** (Object Storage S3-Compatible)
 
-Serviço: MinIO (Object Storage)  
-URL: http://localhost:9001  
-Credenciais: admin / 90V521T8ET4UrV51tPhScGlIcIv7t5  
+### Qualidade & Documentação
+- **JUnit 5** e **Mockito**
+- **Swagger / OpenAPI**
+
+---
+
+## 🚀 Como Executar o Sistema
+
+Siga os passos abaixo para configurar e rodar a aplicação localmente:
+
+### 1. Pré-requisitos
+Certifique-se de que você possui o **Git** instalado:
+- [Download Git](https://git-scm.com/install/windows)
+
+Após a instalação, confirme que o Git está instalado, no seu terminal execute:
+```bash
+git --version
+```
+
+Certifique-se de que você possui o **Docker** instalado:
+- [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+Após a instalação, confirme se o serviço está ativo, no seu terminal execute:
+```bash
+docker --version
+
+docker ps
+```
+<small>
+Se este comando retornar um erro de "pipe" ou "connection refused", o Docker Desktop ainda não terminou de inicializar.
+</small>
+
+### ATENÇÃO: Pare todos os containers que estiverem executando
+```bash
+docker rm -f $(docker ps -aq)
+```
+
+### ATENÇÃO: Remove todos os containers parados, redes não utilizadas e imagens sem uso
+```bash
+docker system prune -a --volumes -f
+```
+<small>Remoção de qualquer vestígio para não ocorrer erro durante a inicialização do Docker</small>
+
+### 2. Clonar o Projeto
+Clone o repositório no seu ambiente local, em um diretório abra o seu terminal e execute:
+```bash
+git clone https://github.com/ferspider3/PSC-0001-2026-SEPLAG
+```
+Acesse a pasta do repositório
+```bash
+cd PSC-0001-2026-SEPLAG
+```
+
+### 3. Inicialização via Docker
+Limpa containers, imagens e volumes antigos do projeto
+```bash
+docker-compose down --rmi all --volumes --remove-orphans
+```
+
+Build e inicialização do container
+```bash
+docker-compose up -d --build
+```
+
+Aguarde a inicialização completa dos serviços.
+
+> ✔️ O banco de dados e os **dados iniciais** (Linkin Park, Guns N' Roses, etc.) são carregados automaticamente.
+
+---
+
+## 🛠️ Portais de Acesso Rápido
+
+- **Swagger (Documentação da API)**  \
+  http://localhost:8080/swagger-ui/index.html
+
+- **Health Check (Actuator)**  \
+  http://localhost:8080/actuator/health
+
+- **MinIO – Object Storage**  \
+  http://localhost:9001  \
+  **Usuário:** admin  \
+  **Senha:** 90V521T8ET4UrV51tPhScGlIcIv7t5
 
 ---
 
 ## 🛡️ Autenticação e Segurança
 
-A API é protegida por JWT (JSON Web Token).
+A API é protegida por **JWT (JSON Web Token)**.
 
-### Como autenticar no Swagger
+### Como autenticar via Swagger
 
-1. Endpoint de login: POST /v1/auth/login
-2. Usuário inicial:
-   - Username: admin
-   - Password: password
-3. Copie o token retornado
-4. No Swagger, clique em Authorize
-5. Utilize o formato: "accessToken": "SEU_TOKEN_AQUI",
+1. Realize o login:
+   - **Endpoint:** `POST /v1/auth/login`
+   - **Usuário:** admin
+   - **Senha:** password
+
+2. Copie o `accessToken` retornado.
+3. No Swagger, clique em **Authorize**.
+4. Utilize o formato:
+   ```json
+   {
+     "accessToken": "SEU_TOKEN_AQUI"
+   }
+   ```
 
 ---
 
 ## 🌍 Integração de Regionais (Requisito Sênior)
 
-A API possui um módulo de integração com o sistema **Argus** para sincronização de regionais. Este módulo segue regras rígidas de integridade e histórico de dados.
+A API possui um módulo de integração com o sistema **Argus**, responsável por sincronizar dados de regionais, mantendo **histórico**, **versionamento** e **integridade**.
 
-### Como Testar a Sincronização:
+### Como Testar a Sincronização
 
-1.  **Carga de Dados**: Inicialmente, o banco de dados estará vazio. Para popular a tabela interna, execute o comando de sincronização no Swagger:
-    * **Endpoint**: `POST /v1/regionais/sync`
-    * **Ação**: Clique em *Try it out* e *Execute*.
-2.  **Consulta**: Após a sincronização, verifique os dados importados:
-    * **Endpoint**: `GET /v1/regionais`
-    * **Resultado esperado**: Lista de regionais com o atributo `"ativo": true`.
+1. **Carga Inicial**:
+   - `POST /v1/regionais/sync`
+   - Execute via Swagger
 
-### Lógica de Menor Complexidade e Versionamento:
-A sincronização implementada segue as premissas:
-- **Novos registros**: Inseridos automaticamente com `ativo: true`.
-- **Registros ausentes no endpoint**: São marcados como `ativo: false` no banco local (soft delete).
-- **Alterações de nome**: Para manter a integridade histórica, o registro antigo é desativado (`ativo: false`) e um novo registro é criado com o nome atualizado.
+2. **Consulta dos Dados**:
+   - `GET /v1/regionais`
+   - Resultado esperado: registros com `"ativo": true`
+
+### Regras de Negócio Implementadas
+- **Novos registros:** inseridos automaticamente com `ativo = true`
+- **Registros ausentes no endpoint:** marcados como `ativo = false` (soft delete)
+- **Alteração de nome:**
+  - Registro antigo é desativado
+  - Novo registro é criado, preservando histórico
 
 ---
 
 ## 📊 Funcionalidades Implementadas
 
+### CRUD Completo
+- Artistas
+- Álbuns
+
+### Relacionamentos
+- **Many-to-Many** entre Artistas e Álbuns
+
 ### Paginação, Ordenação e Filtros Dinâmicos
 
 - Filtro por tipo de artista:
+  ```http
   GET /v1/albums?artistType=BANDA
+  ```
 
 - Busca por nome do artista:
+  ```http
   GET /v1/albums?artistName=Guns
+  ```
 
 - Paginação e ordenação:
+  ```http
   GET /v1/albums?page=0&size=5&sortBy=title&direction=asc
+  ```
 
 ---
 
-### Monitoramento (Spring Actuator)
+## 📡 Notificações em Tempo Real (WebSocket)
 
-Endpoints habilitados para liveness e readiness, permitindo integração com Kubernetes e ferramentas de observabilidade.
+Sempre que um **novo álbum** é cadastrado, a API publica um evento em:
 
----
-
-### Notificações em Tempo Real (WebSocket)
-
-Sempre que um novo álbum é cadastrado, a API publica um evento no tópico:
-
-/topic/new-album
-
-Endpoint de conexão STOMP:
-
-/ws
+- **Tópico:** `/topic/new-album`
+- **Endpoint STOMP:** `/ws`
 
 ---
 
-### Upload de Capas de Álbuns (MinIO / S3)
+## 🖼️ Upload de Capas de Álbuns
 
-Integração com Object Storage S3-Compatible para upload e recuperação de imagens de capas de álbuns.
+Upload e recuperação de imagens utilizando **MinIO (S3-Compatible Storage)**, garantindo desacoplamento e escalabilidade.
 
 ---
 
-## 🧪 Testes Unitários
+## 🧪 Testes Automatizados
 
-O projeto utiliza JUnit 5 e Mockito para testes automatizados.
+Testes unitários desenvolvidos com **JUnit 5** e **Mockito**.
 
-Execução dos testes via Docker:
-
+Execução dos testes dentro do container:
+```bash
 docker exec -it music-api-api mvn test
+```
 
 ---
 
-## 🏗️ Estrutura do Projeto (Maven)
+## 🏗️ Estrutura do Projeto
 
+```text
 src
-- main
-  - java
-    - domain
-    - service
-    - controller
-    - dto
-  - resources
-    - application.properties
-    - db/migration
-- test
-  - java
+ ├─ main
+ │  ├─ java
+ │  │  ├─ domain
+ │  │  ├─ service
+ │  │  ├─ controller
+ │  │  └─ dto
+ │  └─ resources
+ │     ├─ application.properties
+ │     └─ db/migration
+ └─ test
+    └─ java
+```
 
 ---
 
-## ✅ Requisitos Cumpridos
+## ✅ Checklist de Requisitos Atendidos
 
-- CRUD completo de Artistas e Álbuns
-- Relacionamento Many-to-Many
-- Autenticação com Spring Security + JWT
-- Paginação e Ordenação
-- Health Checks (Actuator)
-- WebSockets para notificações
-- Testes Unitários com Mockito
+- ✔️ CRUD de Artistas e Álbuns
+- ✔️ Relacionamento Many-to-Many
+- ✔️ Autenticação com JWT
+- ✔️ Paginação e Ordenação
+- ✔️ Health Checks (Actuator)
+- ✔️ WebSockets
+- ✔️ Integração com Object Storage
+- ✔️ Testes Unitários
 
 ---
 
-## 💡 Dica para o Avaliador
+## 💡 Dica ao Avaliador
 
-Para validar paginação e ordenação rapidamente, utilize:
-
+Para validar rapidamente paginação e ordenação:
+```http
 GET /v1/albums?page=0&size=5&sortBy=title&direction=asc
+```
 
 ---
 
-Projeto com foco em boas práticas, escalabilidade e padrões de mercado.
+Projeto desenvolvido com foco em **padrões de mercado**, **qualidade de código** e **facilidade de avaliação técnica**.
+
+_2026_
+
