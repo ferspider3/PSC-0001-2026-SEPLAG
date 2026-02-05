@@ -44,8 +44,7 @@ O banco de dados e os dados iniciais (Linkin Park, Guns N' Roses, etc.) são car
 ## 🛠️ Portais de Acesso Rápidos
 
 Serviço: Swagger (Documentação)  
-URL: http://localhost:8080/swagger-ui/index.html  
-Credenciais: admin / password  
+URL: http://localhost:8080/swagger-ui/index.html   
 
 Serviço: Health Check  
 URL: http://localhost:8080/actuator/health  
@@ -68,7 +67,7 @@ A API é protegida por JWT (JSON Web Token).
    - Password: password
 3. Copie o token retornado
 4. No Swagger, clique em Authorize
-5. Utilize o formato: Bearer SEU_TOKEN_AQUI
+5. Utilize o formato: "accessToken": "SEU_TOKEN_AQUI",
 
 ---
 
