@@ -39,7 +39,8 @@ public class AuthController {
 
         User newUser = new User();
         newUser.setUsername(request.username());
-        newUser.setPassword(passwordEncoder.encode(request.password())); // Criptografia BCrypt
+        // Criptografia essencial para o nível Sênior
+        newUser.setPassword(passwordEncoder.encode(request.password()));
         newUser.setRole("ROLE_USER");
 
         userRepository.save(newUser);
